@@ -5402,6 +5402,16 @@ VALID_AXES.indexOf(str);if(a===-1)throw new Error("invalid axes");map.get(this).
 }
 
 {
+'use strict';{const C3=self.C3;C3.Behaviors.solid=class SolidBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Behaviors.solid.Type=class SolidType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const C3X=self.C3X;const IBehaviorInstance=self.IBehaviorInstance;const ENABLE=0;const TAGS=1;const EMPTY_SET=new Set;C3.Behaviors.solid.Instance=class SolidInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this.SetEnabled(true);if(properties){this.SetEnabled(properties[ENABLE]);this.SetTags(properties[TAGS])}}Release(){super.Release()}SetEnabled(e){this._inst._SetSolidEnabled(!!e)}IsEnabled(){return this._inst._IsSolidEnabled()}SetTags(tagList){const savedDataMap=
+this._inst.GetSavedDataMap();if(!tagList.trim()){savedDataMap.delete("solidTags");return}let solidTags=savedDataMap.get("solidTags");if(!solidTags){solidTags=new Set;savedDataMap.set("solidTags",solidTags)}solidTags.clear();for(const tag of tagList.split(" "))if(tag)solidTags.add(tag.toLowerCase())}GetTags(){return this._inst.GetSavedDataMap().get("solidTags")||EMPTY_SET}_GetTagsString(){return[...this.GetTags()].join(" ")}SaveToJson(){return{"e":this.IsEnabled()}}LoadFromJson(o){this.SetEnabled(o["e"])}GetPropertyValueByIndex(index){switch(index){case ENABLE:return this.IsEnabled()}}SetPropertyValueByIndex(index,
+value){switch(index){case ENABLE:this.SetEnabled(value);break}}GetDebuggerProperties(){return[{title:"$"+this.GetBehaviorType().GetName(),properties:[{name:"behaviors.solid.properties.enabled.name",value:this.IsEnabled(),onedit:v=>this.SetEnabled(v)},{name:"behaviors.solid.properties.tags.name",value:this._GetTagsString(),onedit:v=>this.SetTags(v)}]}]}GetScriptInterfaceClass(){return self.ISolidBehaviorInstance}};const map=new WeakMap;self.ISolidBehaviorInstance=class ISolidBehaviorInstance extends IBehaviorInstance{constructor(){super();
+map.set(this,IBehaviorInstance._GetInitInst().GetSdkInstance())}set isEnabled(e){map.get(this).SetEnabled(!!e)}get isEnabled(){return map.get(this).IsEnabled()}set tags(str){C3X.RequireString(str);map.get(this).SetTags(str)}get tags(){return map.get(this)._GetTagsString()}}}{const C3=self.C3;C3.Behaviors.solid.Cnds={IsEnabled(){return this.IsEnabled()}}}{const C3=self.C3;C3.Behaviors.solid.Acts={SetEnabled(e){this.SetEnabled(e)},SetTags(tagList){this.SetTags(tagList)}}}
+{const C3=self.C3;C3.Behaviors.solid.Exps={}};
+
+}
+
+{
 'use strict';{const C3=self.C3;C3.Behaviors.Sin=class SinBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Behaviors.Sin.Type=class SinType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}}
 {const C3=self.C3;const C3X=self.C3X;const IBehaviorInstance=self.IBehaviorInstance;const MOVEMENT=0;const WAVE=1;const PERIOD=2;const PERIOD_RANDOM=3;const PERIOD_OFFSET=4;const PERIOD_OFFSET_RANDOM=5;const MAGNITUDE=6;const MAGNITUDE_RANDOM=7;const ENABLE=8;const HORIZONTAL=0;const VERTICAL=1;const SIZE=2;const WIDTH=3;const HEIGHT=4;const ANGLE=5;const OPACITY=6;const VALUE=7;const FORWARDS_BACKWARDS=8;const ZELEVATION=9;const SINE=0;const TRIANGLE=1;const SAWTOOTH=2;const REVERSE_SAWTOOTH=3;const SQUARE=
 4;const _2pi=2*Math.PI;const _pi_2=Math.PI/2;const _3pi_2=3*Math.PI/2;const MOVEMENT_LOOKUP=[0,1,8,3,4,2,5,6,9,7];C3.Behaviors.Sin.Instance=class SinInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this._i=0;this._movement=0;this._wave=0;this._period=0;this._mag=0;this._isEnabled=true;this._basePeriod=0;this._basePeriodOffset=0;this._baseMag=0;this._periodRandom=0;this._periodOffsetRandom=0;this._magnitudeRandom=0;this._initialValue=0;this._initialValue2=
@@ -5445,6 +5455,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.EightDir,
 		C3.Plugins.iframe,
 		C3.Behaviors.DragnDrop,
+		C3.Behaviors.solid,
 		C3.Behaviors.Sin,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.System.Cnds.CompareBoolVar,
@@ -5523,18 +5534,19 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.System.Acts.SetLayerScale,
 		C3.Plugins.System.Exps.layerscale,
-		C3.Plugins.Text.Acts.SetOpacity,
-		C3.Plugins.Text.Exps.Opacity,
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Sprite.Exps.ImagePointX,
 		C3.Plugins.Sprite.Exps.ImagePointY,
 		C3.Plugins.System.Acts.ScrollToObject,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
+		C3.Plugins.Text.Acts.SetOpacity,
+		C3.Plugins.Text.Exps.Opacity,
+		C3.Plugins.Sprite.Cnds.CompareOpacity,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.System.Acts.SubVar,
-		C3.Plugins.Sprite.Cnds.CompareOpacity,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.System.Acts.GoToLayoutByName,
+		C3.Plugins.Browser.Acts.GoToURL,
 		C3.Plugins.System.Acts.SetLayerOpacity,
 		C3.Plugins.System.Exps.layeropacity,
 		C3.Plugins.iframe.Acts.SetPos,
@@ -5553,7 +5565,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.DragnDrop.Acts.SetEnabled,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Behaviors.DragnDrop.Cnds.IsDragging,
-		C3.Plugins.Sprite.Acts.SetScale
+		C3.Plugins.Sprite.Acts.SetScale,
+		C3.Plugins.System.Exps.zeropad,
+		C3.Behaviors.EightDir.Acts.SimulateControl,
+		C3.Plugins.Sprite.Cnds.OnCollision
 	];
 };
 self.C3_JsPropNameTable = [
@@ -5629,9 +5644,16 @@ self.C3_JsPropNameTable = [
 	{Group: 0},
 	{soal: 0},
 	{keyboard_tts: 0},
+	{poin: 0},
+	{Rectangle2: 0},
+	{image: 0},
+	{Solid: 0},
+	{Line: 0},
+	{Sine: 0},
+	{sembako: 0},
+	{solid: 0},
 	{pos: 0},
 	{opa: 0},
-	{Sine: 0},
 	{litetweens: 0},
 	{button: 0},
 	{isOnKeyboard: 0},
@@ -5648,6 +5670,7 @@ self.C3_JsPropNameTable = [
 	{onSpotClicked: 0},
 	{layer_zoom: 0},
 	{distractions: 0},
+	{STATE_MAP: 0},
 	{STATE_CLICKED: 0},
 	{isVideoClicked: 0},
 	{isFileClicked: 0},
@@ -5661,7 +5684,13 @@ self.C3_JsPropNameTable = [
 	{questionNum: 0},
 	{questionAnswer: 0},
 	{mhsAktif: 0},
-	{true_tts: 0}
+	{soalKe: 0},
+	{skorSementara: 0},
+	{true_tts: 0},
+	{isTimerTTSStart: 0},
+	{timerTTS: 0},
+	{frame: 0},
+	{isOver: 0}
 ];
 }
 
@@ -5960,6 +5989,7 @@ self.C3_ExpressionFuncs = [
 			return () => C3.lerp(n0.ExpObject(), n1.ExpObject(1), 0.04);
 		},
 		() => 2,
+		() => "leaderboard",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -5975,18 +6005,29 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 0.1,
 		() => -100,
+		() => 80,
 		() => "back",
+		() => "back_leaderboard",
+		() => "NORMAL",
+		() => "LEADERBOARD",
 		() => "zoom_in",
 		() => 1.75,
 		() => 0.25,
 		() => "zoom_out",
 		() => 1.25,
-		() => 80,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("Gedung ", v0.GetValue());
 		},
-		() => "NORMAL",
+		() => "https://eradika-gallery.bhsk.dev/",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0("LEADERBOARD"), 0, 0.08);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0("LEADERBOARD"), 100, 0.08);
+		},
 		() => "tv",
 		() => "TV",
 		() => "rak",
@@ -6037,6 +6078,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 10,
 		() => "Success updating score, congratulations!",
+		() => 5,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -6071,13 +6113,15 @@ self.C3_ExpressionFuncs = [
 		() => "mhs3",
 		() => "back_quiz",
 		() => "-",
+		() => "next_quiz",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => ("jawaban_" + v0.GetValue());
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => add(n0.ExpObject("current_score"), 2);
+			const v1 = p._GetNode(1).GetVar();
+			return () => add(n0.ExpObject("current_score"), v1.GetValue());
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -6086,10 +6130,34 @@ self.C3_ExpressionFuncs = [
 		() => 0.7,
 		() => 25,
 		p => {
+			const n0 = p._GetNode(0);
+			return () => add(n0.ExpObject("current_score"), 100);
+		},
+		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("{ \"current_score\": ", v0.GetValue()) + ", \"current_spot\": 5 }");
 		},
-		() => 5
+		() => "timer_tts",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const v1 = p._GetNode(1).GetVar();
+			const f2 = p._GetNode(2).GetBoundMethod();
+			const v3 = p._GetNode(3).GetVar();
+			return () => ((f0(Math.floor((v1.GetValue() / 60)), 1) + ":") + f2(Math.floor((v3.GetValue() % 60)), 2));
+		},
+		() => "down",
+		() => "up",
+		() => "left",
+		() => "right",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => add(n0.ExpObject("current_score"), 50);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (and("{ \"current_score\": ", v0.GetValue()) + ", \"current_spot\": 6 }");
+		},
+		() => 50
 ];
 
 
