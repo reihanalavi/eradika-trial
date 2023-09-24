@@ -5680,6 +5680,7 @@ self.C3_JsPropNameTable = [
 	{score_to_update: 0},
 	{true: 0},
 	{showResolved: 0},
+	{isKuisStart: 0},
 	{STATE_UNNES: 0},
 	{questionNum: 0},
 	{questionAnswer: 0},
@@ -5690,7 +5691,8 @@ self.C3_JsPropNameTable = [
 	{isTimerTTSStart: 0},
 	{timerTTS: 0},
 	{frame: 0},
-	{isOver: 0}
+	{isOver: 0},
+	{isKuisLabirin: 0}
 ];
 }
 
@@ -5949,6 +5951,11 @@ self.C3_ExpressionFuncs = [
 			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() * 1), 0.2);
 		},
 		() => "name",
+		() => "skor",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and(v0.GetValue(), " Poin");
+		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(1, 1.2, 1.4, 1.6, 1.8, 2);
@@ -6092,13 +6099,31 @@ self.C3_ExpressionFuncs = [
 		() => 12,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => add(n0.ExpObject("current_score"), 20);
+			const v1 = p._GetNode(1).GetVar();
+			return () => add(add(n0.ExpObject("current_score"), 20), v1.GetValue());
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("{ \"current_score\": ", v0.GetValue()) + ", \"current_spot\": 3 }");
 		},
 		() => 20,
+		() => "KUIS",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => ("jawaban_" + v0.GetValue());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(1, 2, 3, 4);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0("KUIS"), 100, 0.08);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0("KUIS"), 0, 0.08);
+		},
 		() => "QUIZ",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6114,10 +6139,6 @@ self.C3_ExpressionFuncs = [
 		() => "back_quiz",
 		() => "-",
 		() => "next_quiz",
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => ("jawaban_" + v0.GetValue());
-		},
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
@@ -6151,7 +6172,8 @@ self.C3_ExpressionFuncs = [
 		() => "right",
 		p => {
 			const n0 = p._GetNode(0);
-			return () => add(n0.ExpObject("current_score"), 50);
+			const v1 = p._GetNode(1).GetVar();
+			return () => add(add(n0.ExpObject("current_score"), 50), v1.GetValue());
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
